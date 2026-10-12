@@ -313,6 +313,7 @@ export default function Home() {
                 <p className="eyebrow eyebrow-light"><span /> Get in touch</p>
                 <h2>Let&apos;s work<br />together.</h2>
                 <p>Have a project in mind or want to collaborate? Reach either founder directly.</p>
+                <a className="contact-phone" href="tel:+639636527633"><span>Business line</span>0963 652 7633</a>
               </div>
               <div className="contact-list">
                 {team.map((member) => (
