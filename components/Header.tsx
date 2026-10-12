@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Close, Menu } from "./icons";
+import { ArrowUpRight, Close, Menu, Moon, Sun } from "./icons";
+
+type Theme = "light" | "dark";
 
 const navItems = [
   { label: "Work", href: "#work" },
@@ -15,6 +17,11 @@ const navItems = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("work");
+  const [theme, setTheme] = useState<Theme>("light");
+
+  useEffect(() => {
+    setTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+  }, []);
 
   useEffect(() => {
     const sections = navItems
@@ -38,6 +45,17 @@ export function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  function toggleTheme() {
+    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = nextTheme;
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem("ninjatech-theme", nextTheme);
+    } catch {
+      // The theme still applies for this visit when storage is unavailable.
+    }
+  }
+
   return (
     <header className="site-header">
       <div className="nav-shell">
@@ -52,7 +70,19 @@ export function Header() {
           ))}
         </nav>
 
-        <a href="#book-call" className="nav-cta">Book a Call <span aria-hidden="true">↗</span></a>
+        <button
+          type="button"
+          className="theme-toggle"
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          aria-pressed={theme === "dark"}
+          onClick={toggleTheme}
+        >
+          <span className="theme-icon theme-icon-sun"><Sun /></span>
+          <span className="theme-icon theme-icon-moon"><Moon /></span>
+        </button>
+
+        <a href="#book-call" className="nav-cta">Book a Call <ArrowUpRight /></a>
 
         <button
           type="button"
@@ -72,7 +102,7 @@ export function Header() {
               <span>{String(index + 1).padStart(2, "0")}</span>{label}
             </a>
           ))}
-          <a href="#book-call" className="mobile-cta" onClick={() => setOpen(false)}>Book a Call <span>↗</span></a>
+          <a href="#book-call" className="mobile-cta" onClick={() => setOpen(false)}>Book a Call <ArrowUpRight /></a>
         </nav>
       </div>
     </header>

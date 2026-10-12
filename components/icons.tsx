@@ -36,6 +36,14 @@ export function Close(props: IconProps) {
   return <svg {...base} {...props}><path d="m6 6 12 12M18 6 6 18" /></svg>;
 }
 
+export function Sun(props: IconProps) {
+  return <svg {...base} {...props}><circle cx="12" cy="12" r="3.5" /><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" /></svg>;
+}
+
+export function Moon(props: IconProps) {
+  return <svg {...base} {...props}><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z" /></svg>;
+}
+
 export function Check(props: IconProps) {
   return <svg {...base} {...props}><path d="m5 12 4 4L19 6" /></svg>;
 }

@@ -18,7 +18,18 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; color-scheme: light; }
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --ivory: #151a16;
+  --sage-light: #222c24;
+  --sage: #a5b99c;
+  --forest: #9db59c;
+  --ink: #eef2ec;
+  --muted: #aab4ab;
+  --line: rgba(238, 242, 236, 0.14);
+  --white-line: rgba(247, 248, 242, 0.16);
+}
 body {
   margin: 0;
   background: var(--ivory);
@@ -26,6 +37,7 @@ body {
   font-family: "Manrope Variable", Manrope, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 300ms ease, color 300ms ease;
 }
 a { color: inherit; text-decoration: none; }
 button, input, textarea, select { font: inherit; }
@@ -65,8 +77,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .desktop-nav a:hover::after, .desktop-nav a.active::after { right: 0; }
 .nav-cta { margin-left: 4px; display: inline-flex; align-items: center; gap: 12px; border-radius: 10px; padding: 12px 17px; background: var(--ink); color: var(--ivory); font-size: 13px; font-weight: 700; transition: transform 280ms var(--ease), background 280ms ease; }
 .nav-cta:hover { background: var(--forest); transform: translateY(-2px); }
-.nav-cta span { transition: transform 280ms var(--ease); }
-.nav-cta:hover span { transform: translate(2px,-2px); }
+.nav-cta svg { width: 15px; height: 15px; transition: transform 280ms var(--ease); }
+.nav-cta:hover svg { transform: translate(2px,-2px); }
+.theme-toggle { position: relative; flex: 0 0 auto; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; padding: 0; background: transparent; color: var(--ink); cursor: pointer; transition: background 260ms ease, border-color 260ms ease, color 260ms ease, transform 260ms var(--ease); }
+.theme-toggle:hover { border-color: var(--forest); background: var(--sage-light); transform: translateY(-2px); }
+.theme-toggle:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+.theme-icon { grid-area: 1 / 1; display: grid; place-items: center; transition: opacity 220ms ease, transform 300ms var(--ease); }
+.theme-icon svg { width: 17px; height: 17px; }
+.theme-icon-moon { opacity: 0; transform: rotate(-35deg) scale(.7); }
+html[data-theme="dark"] .theme-icon-sun { opacity: 0; transform: rotate(35deg) scale(.7); }
+html[data-theme="dark"] .theme-icon-moon { opacity: 1; transform: rotate(0) scale(1); }
 .menu-toggle { display: none; margin-left: auto; border: 0; background: transparent; color: var(--ink); width: 42px; height: 42px; padding: 9px; }
 .menu-toggle svg { width: 100%; height: 100%; }
 .mobile-menu { display: none; }
@@ -261,6 +281,49 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .footer-main nav a:hover { color: var(--forest); }
 .footer-bottom { display: flex; justify-content: space-between; gap: 30px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
 
+html[data-theme="dark"] .desktop-nav a { color: #b6c0b7; }
+html[data-theme="dark"] .desktop-nav a:hover,
+html[data-theme="dark"] .desktop-nav a.active { color: var(--ink); }
+html[data-theme="dark"] .hero-panel { background: rgba(42, 56, 45, .8); box-shadow: 0 28px 80px rgba(0, 0, 0, .24); }
+html[data-theme="dark"] .hero-service-row:hover,
+html[data-theme="dark"] .service-row:hover { background: rgba(238, 242, 236, .06); }
+html[data-theme="dark"] .button-ghost { background: rgba(238, 242, 236, .03); }
+html[data-theme="dark"] .button-ghost:hover { background: var(--sage-light); }
+html[data-theme="dark"] .team-card { background: #192019; }
+html[data-theme="dark"] .projects-section { background: #0d120e; color: #f7f8f2; }
+html[data-theme="dark"] .project-open { background: #f7f8f2; color: #202b23; }
+html[data-theme="dark"] .stack-card { background: #192019; }
+html[data-theme="dark"] .pill-list span { background: rgba(238, 242, 236, .04); }
+html[data-theme="dark"] .services-section { background: #1c251e; }
+html[data-theme="dark"] .pricing-section { background: #28382b; color: #f7f8f2; }
+html[data-theme="dark"] .pricing-card.featured { background: #151a16; color: #eef2ec; }
+html[data-theme="dark"] .pricing-card.featured > p,
+html[data-theme="dark"] .pricing-card.featured li { color: #aab4ab; }
+html[data-theme="dark"] .featured .pricing-button { background: #eef2ec; color: #202b23; border-color: #eef2ec; }
+html[data-theme="dark"] .featured .pricing-button:hover,
+html[data-theme="dark"] .pricing-button:hover { background: var(--sage); color: #202b23; }
+html[data-theme="dark"] .inquiry-form { background: #192019; }
+html[data-theme="dark"] .inquiry-form input,
+html[data-theme="dark"] .inquiry-form select,
+html[data-theme="dark"] .inquiry-form textarea { background: #111612; color: #eef2ec; }
+html[data-theme="dark"] .inquiry-form label > span { color: #c0c9c0; }
+html[data-theme="dark"] .contact-panel { background: #0d120e; color: #f7f8f2; }
+
+body,
+.site-header,
+.about-section,
+.projects-section,
+.stack-section,
+.services-section,
+.pricing-section,
+.book-section,
+.contact-section,
+.site-footer,
+.team-card,
+.stack-card,
+.inquiry-form,
+.contact-panel { transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease; }
+
 @media (max-width: 1100px) {
   .desktop-nav { gap: 16px; }
   .desktop-nav a { font-size: 11px; }
@@ -281,6 +344,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .container { width: min(100% - 40px, 720px); }
   .section-pad { padding: 96px 0; }
   .desktop-nav, .nav-cta { display: none; }
+  .theme-toggle { margin-left: auto; }
   .menu-toggle { display: block; }
   .mobile-menu { display: block; position: fixed; inset: 82px 0 0; padding: 30px 20px; background: var(--ivory); visibility: hidden; opacity: 0; transform: translateY(-12px); transition: opacity 250ms ease, transform 300ms var(--ease), visibility 250ms; }
   .mobile-menu.open { visibility: visible; opacity: 1; transform: translateY(0); }
