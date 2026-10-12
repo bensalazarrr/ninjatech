@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+.vercel
+.tmp-ref
+.qa
+*.log
+*.tsbuildinfo
+.DS_Store
